@@ -95,6 +95,10 @@ sub extract {
 
 
 
+
+
+
+
 1;
 
 __END__
@@ -121,9 +125,13 @@ Typically, this is the C<module> name, in the form:
 
 However, it also supports extraction of an override statement in the form:
 
-  # PODNAME: 
+  # PODNAME: OverrideName::Goes::Here
 
-=head2 Usage:
+Which may be more applicable for documents that lack a C<package> statement, or the C<package>
+statement may be "wrong", but they still need the document parsed under the guise of having a name
+( for purposes such as POD )
+
+=head1 USAGE
 
 The recommended approach is simply:
 
