@@ -126,7 +126,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::KENTNL::TravisCI
       name: '@Author::KENTNL/Author::KENTNL::TravisCI'
-      version: '0.001000'
+      version: '0.001001'
     -
       class: Dist::Zilla::Plugin::CopyFilesFromBuild
       name: '@Author::KENTNL/CopyXBuild'

@@ -87,7 +87,7 @@
          },
          "suggests" : {
             "Dist::Zilla::App::Command::bakeini" : "0.002000",
-            "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.023002"
+            "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.023003"
          }
       },
       "runtime" : {
@@ -247,7 +247,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::KENTNL::TravisCI",
             "name" : "@Author::KENTNL/Author::KENTNL::TravisCI",
-            "version" : "0.001000"
+            "version" : "0.001001"
          },
          {
             "class" : "Dist::Zilla::Plugin::CopyFilesFromBuild",

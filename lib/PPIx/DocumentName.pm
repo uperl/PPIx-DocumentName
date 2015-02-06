@@ -19,11 +19,30 @@ sub extract_docname               { __PACKAGE__->extract(@_) }
 sub extract_docname_via_statement { __PACKAGE__->extract_via_statement(@_) }
 sub extract_docname_via_comment   { __PACKAGE__->extract_via_comment(@_) }
 
+BEGIN {
+  if ( $INC{'Log/Contextual.pm'} ) {
+    require "Log/Contextual/WarnLogger.pm";
+    my $deflogger = Log::Contextual::WarnLogger->new( { env_prefix => 'PPIX_DOCUMENTNAME', } );
+    Log::Contextual->import( 'log_info', 'log_debug', '-default_logger' => $deflogger );
+  }
+  else {
+    *log_info  = sub (&) { warn $_[0]->() };
+    *log_debug = sub (&) { };
+  }
+}
+
 ## OO
 sub extract_via_statement {
   my ( undef, $ppi_document ) = @_;
   my $pkg_node = _Document($ppi_document)->find_first('PPI::Statement::Package');
-  return unless $pkg_node;
+  if ( not $pkg_node ) {
+    log_debug { "No PPI::Statement::Package found in <<$ppi_document>>" };
+    return;
+  }
+  if ( not $pkg_node->namespace ) {
+    log_debug { "PPI::Statement::Package $pkg_node has empty namespace in <<$ppi_document>>" };
+    return;
+  }
   return $pkg_node->namespace;
 }
 
