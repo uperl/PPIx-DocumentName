@@ -172,7 +172,7 @@ statement may be "wrong", but they still need the document parsed under the guis
 This will first attempt to extract a name via the C<PODNAME: > comment notation,
 and then fallback to using a C<package Package::Name> statement.
 
-C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-upcast if it is
+C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
 
 =head2 extract_via_statement
@@ -218,7 +218,7 @@ Other things I could have called this
 
 =over 4
 
-=item * C<PPIx::PodName> - But it isn't, because it doesnt extract from C<POD>, only returns data that may be useful B<FOR> C<POD>
+=item * C<PPIx::PodName> - But it isn't, because it doesn't extract from C<POD>, only returns data that may be useful B<FOR> C<POD>
 
 =item * C<PPIx::ModuleName> - But it kinda isn't either, because its more generic than that and is tailored to extracting "a name" out of any PPI Document, and they're I<NOT> all modules.
 
