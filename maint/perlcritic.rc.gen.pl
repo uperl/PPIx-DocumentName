@@ -26,7 +26,6 @@ $bundle->remove_policy('Subroutines::ProhibitSubroutinePrototypes');
 $bundle->remove_policy('Subroutines::RequireArgUnpacking');
 $bundle->remove_policy('Subroutines::RequireFinalReturn');
 
-
 #$bundle->add_or_append_policy_field(
 #  'Subroutines::ProhibitCallsToUndeclaredSubs' => ( 'exempt_subs' => 'String::Formatter::str_rf' ), );
 

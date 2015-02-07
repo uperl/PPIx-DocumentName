@@ -15,16 +15,6 @@ use PPI::Util qw( _Document );
 
 
 
-## Exporter Interface
-use Exporter 5.57 qw( import );
-our @EXPORT_OK = qw( extract_docname extract_docname_via_statement extract_docname_via_comment );
-sub extract_docname               { __PACKAGE__->extract(@_) }
-sub extract_docname_via_statement { __PACKAGE__->extract_via_statement(@_) }
-sub extract_docname_via_comment   { __PACKAGE__->extract_via_comment(@_) }
-
-
-
-
 sub log_info(&);
 sub log_debug(&);
 sub log_trace(&);
@@ -172,12 +162,6 @@ The recommended approach is simply:
   # Get a PPI Document Somehow
   return PPIx::DocumentName->extract( $ppi_document );
 
-However, if you require multiple invocations of this, that could quickly become tiresome.
-
-  use PPIx::DocumentName qw( extract_docname );
-
-  return extract_docname( $ppi_document );
-
 =head1 METHODS
 
 =head2 extract
@@ -207,8 +191,6 @@ This will only extract C<PODNAME: > comment based document names.
 
 C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
-
-=for Pod::Coverage extract_docname extract_docname_via_statement extract_docname_via_comment
 
 =for Pod::Coverage log_info log_debug log_trace
 

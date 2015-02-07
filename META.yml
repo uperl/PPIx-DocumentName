@@ -23,7 +23,6 @@ provides:
     version: '0.001000'
 requires:
   Carp: '0'
-  Exporter: '5.57'
   PPI::Util: '0'
   perl: '5.006'
   strict: '0'

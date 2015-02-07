@@ -52,7 +52,6 @@
       "Dist::Zilla::Plugin::Twitter" : "0.026",
       "Dist::Zilla::Plugin::UploadToCPAN" : "5.031",
       "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.023003",
-      "Exporter" : "5.72",
       "ExtUtils::MakeMaker" : "7.04",
       "File::Spec" : "3.53",
       "PPI::Util" : "1.220",

@@ -22,7 +22,6 @@ my %WriteMakefileArgs = (
   "NAME" => "PPIx::DocumentName",
   "PREREQ_PM" => {
     "Carp" => 0,
-    "Exporter" => "5.57",
     "PPI::Util" => 0,
     "strict" => 0,
     "warnings" => 0
@@ -41,7 +40,6 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Carp" => 0,
-  "Exporter" => "5.57",
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
   "PPI::Util" => 0,
