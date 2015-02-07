@@ -188,7 +188,7 @@ any of the parameters C<< PPI::Document->new() >> understands.
 
   my $docname = PPIx::DocumentName->extract_via_comment( $ppi_document );
 
-This will only exract C<PODNAME: > comment based document names.
+This will only extract C<PODNAME: > comment based document names.
 
 C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-upcast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
@@ -218,7 +218,7 @@ Other things I could have called this
 
 =over 4
 
-=item * C<PPIx::PodName> - But it isnt, because it doesnt extract from C<POD>, only returns data that may be useful B<FOR> C<POD>
+=item * C<PPIx::PodName> - But it isn't, because it doesnt extract from C<POD>, only returns data that may be useful B<FOR> C<POD>
 
 =item * C<PPIx::ModuleName> - But it kinda isn't either, because its more generic than that and is tailored to extracting "a name" out of any PPI Document, and they're I<NOT> all modules.
 
