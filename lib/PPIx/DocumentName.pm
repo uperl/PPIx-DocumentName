@@ -15,9 +15,9 @@ use PPI::Util qw( _Document );
 
 
 
-sub log_info(&);
-sub log_debug(&);
-sub log_trace(&);
+sub log_info(&@);
+sub log_debug(&@);
+sub log_trace(&@);
 
 BEGIN {
   if ( $INC{'Log/Contextual.pm'} ) {
@@ -28,9 +28,9 @@ BEGIN {
   }
   else {
     require Carp;
-    *log_info  = sub (&) { Carp::carp( $_[0]->() ) };
-    *log_debug = sub (&) { };
-    *log_trace = sub (&) { };
+    *log_info  = sub (&@) { Carp::carp( $_[0]->() ) };
+    *log_debug = sub (&@) { };
+    *log_trace = sub (&@) { };
   }
 }
 
