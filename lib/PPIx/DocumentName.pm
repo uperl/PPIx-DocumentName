@@ -31,7 +31,8 @@ sub log_trace(&);
 
 BEGIN {
   if ( $INC{'Log/Contextual.pm'} ) {
-    require "Log/Contextual/WarnLogger.pm";
+    ## Hide from autoprereqs
+    require 'Log/Contextual/WarnLogger.pm'; ## no critic (Modules::RequireBarewordIncludes)
     my $deflogger = Log::Contextual::WarnLogger->new( { env_prefix => 'PPIX_DOCUMENTNAME', } );
     Log::Contextual->import( 'log_info', 'log_debug', 'log_trace', '-default_logger' => $deflogger );
   }
