@@ -1,6 +1,7 @@
 {
    "modules" : {
       "CPAN::Meta" : "2.143240",
+      "Carp" : "1.34",
       "Dist::Zilla" : "5.031",
       "Dist::Zilla::App::Command::bakeini" : "0.002000",
       "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.004001",

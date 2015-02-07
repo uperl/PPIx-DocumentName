@@ -32,15 +32,15 @@ sub log_trace(&);
 BEGIN {
   if ( $INC{'Log/Contextual.pm'} ) {
     ## Hide from autoprereqs
-    require 'Log/Contextual/WarnLogger.pm'; ## no critic (Modules::RequireBarewordIncludes)
+    require 'Log/Contextual/WarnLogger.pm';    ## no critic (Modules::RequireBarewordIncludes)
     my $deflogger = Log::Contextual::WarnLogger->new( { env_prefix => 'PPIX_DOCUMENTNAME', } );
     Log::Contextual->import( 'log_info', 'log_debug', 'log_trace', '-default_logger' => $deflogger );
   }
   else {
-    *log_info  = sub (&) { warn $_[0]->() };
+    require Carp;
+    *log_info  = sub (&) { Carp::carp( $_[0]->() ) };
     *log_debug = sub (&) { };
     *log_trace = sub (&) { };
-
   }
 }
 
@@ -131,7 +131,6 @@ sub extract_via_comment {
   return $content;
 }
 
-
 1;
 
 __END__
@@ -182,7 +181,7 @@ any of the parameters C<< PPI::Document->new() >> understands.
 
 This only extract C<package Package::Name> statement based document names.
 
-C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-upcast if it is
+C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
 
 =head2 extract_via_comment
