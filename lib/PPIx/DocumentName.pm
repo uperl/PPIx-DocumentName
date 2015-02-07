@@ -163,6 +163,21 @@ Which may be more applicable for documents that lack a C<package> statement, or 
 statement may be "wrong", but they still need the document parsed under the guise of having a name
 ( for purposes such as POD )
 
+=head1 USAGE
+
+The recommended approach is simply:
+
+  use PPIx::DocumentName;
+
+  # Get a PPI Document Somehow
+  return PPIx::DocumentName->extract( $ppi_document );
+
+However, if you require multiple invocations of this, that could quickly become tiresome.
+
+  use PPIx::DocumentName qw( extract_docname );
+
+  return extract_docname( $ppi_document );
+
 =head1 METHODS
 
 =head2 extract
@@ -196,21 +211,6 @@ any of the parameters C<< PPI::Document->new() >> understands.
 =for Pod::Coverage extract_docname extract_docname_via_statement extract_docname_via_comment
 
 =for Pod::Coverage log_info log_debug log_trace
-
-=head1 USAGE
-
-The recommended approach is simply:
-
-  use PPIx::DocumentName;
-
-  # Get a PPI Document Somehow
-  return PPIx::DocumentName->extract( $ppi_document );
-
-However, if you require multiple invocations of this, that could quickly become tiresome.
-
-  use PPIx::DocumentName qw( extract_docname );
-
-  return extract_docname( $ppi_document );
 
 =head1 ALTERNATIVE NAMES
 

@@ -391,12 +391,12 @@
                      },
                      {
                         "class" : "Pod::Weaver::Section::Generic",
-                        "name" : "SYNOPSIS",
+                        "name" : "DESCRIPTION",
                         "version" : "4.010"
                      },
                      {
                         "class" : "Pod::Weaver::Section::Generic",
-                        "name" : "DESCRIPTION",
+                        "name" : "USAGE",
                         "version" : "4.010"
                      },
                      {
