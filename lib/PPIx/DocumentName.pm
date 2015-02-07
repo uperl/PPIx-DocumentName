@@ -19,6 +19,13 @@ sub extract_docname               { __PACKAGE__->extract(@_) }
 sub extract_docname_via_statement { __PACKAGE__->extract_via_statement(@_) }
 sub extract_docname_via_comment   { __PACKAGE__->extract_via_comment(@_) }
 
+
+
+
+sub log_info(&);
+sub log_debug(&);
+sub log_trace(&);
+
 BEGIN {
   if ( $INC{'Log/Contextual.pm'} ) {
     require "Log/Contextual/WarnLogger.pm";
@@ -116,6 +123,8 @@ However, it also supports extraction of an override statement in the form:
 Which may be more applicable for documents that lack a C<package> statement, or the C<package>
 statement may be "wrong", but they still need the document parsed under the guise of having a name
 ( for purposes such as POD )
+
+=for Pod::Coverage log_info log_debug log_trace
 
 =head1 USAGE
 
