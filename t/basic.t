@@ -15,22 +15,22 @@ package Foo::Bar;
 EOF
 
 {
-  note "Sanity Check";
   my $result = _Document( \$sample );
-  isa_ok( $result, 'PPI::Document' );
+  isa_ok( $result, 'PPI::Document', "_Document(\\\$sample)" );
 };
 
 {
-  note "Composite Extraction";
   my $result = PPIx::DocumentName->extract( \$sample );
-  is( $result, 'Foo::Bar', "Extracted Document matches expectation" );
+  is( $result, 'Foo::Bar', "->extract() is package statement" );
 }
 
 {
-  note "Statement Extraction";
   my $result = PPIx::DocumentName->extract_via_statement( \$sample );
-  is( $result, 'Foo::Bar', "Extracted Document matches expectation" );
+  is( $result, 'Foo::Bar', "->extract_via_statement() is correct" );
 }
-
+{
+  my $result = PPIx::DocumentName->extract_via_comment( \$sample );
+  is( $result, undef, "->extract_via_comment() is undef" );
+}
 done_testing;
 
