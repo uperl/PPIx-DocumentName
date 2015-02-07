@@ -6,6 +6,74 @@ PPIx::DocumentName - Utility to extract a name from a PPI Document
 
 version 0.001000
 
+# DESCRIPTION
+
+This module contains a few utilities for extracting a "name" out of an arbitrary Perl file.
+
+Typically, this is the `module` name, in the form:
+
+    package Foo
+
+However, it also supports extraction of an override statement in the form:
+
+    # PODNAME: OverrideName::Goes::Here
+
+Which may be more applicable for documents that lack a `package` statement, or the `package`
+statement may be "wrong", but they still need the document parsed under the guise of having a name
+( for purposes such as POD )
+
+# USAGE
+
+The recommended approach is simply:
+
+    use PPIx::DocumentName;
+
+    # Get a PPI Document Somehow
+    return PPIx::DocumentName->extract( $ppi_document );
+
+However, if you require multiple invocations of this, that could quickly become tiresome.
+
+    use PPIx::DocumentName qw( extract_docname );
+
+    return extract_docname( $ppi_document );
+
+# METHODS
+
+## extract
+
+    my $docname = PPIx::DocumentName->extract( $ppi_document );
+
+This will first attempt to extract a name via the `PODNAME: ` comment notation,
+and then fallback to using a `package Package::Name` statement.
+
+`$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
+any of the parameters `PPI::Document->new()` understands.
+
+## extract\_via\_statement
+
+    my $docname = PPIx::DocumentName->extract_via_statement( $ppi_document );
+
+This only extract `package Package::Name` statement based document names.
+
+`$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
+any of the parameters `PPI::Document->new()` understands.
+
+## extract\_via\_comment
+
+    my $docname = PPIx::DocumentName->extract_via_comment( $ppi_document );
+
+This will only extract `PODNAME: ` comment based document names.
+
+`$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
+any of the parameters `PPI::Document->new()` understands.
+
+# ALTERNATIVE NAMES
+
+Other things I could have called this
+
+- `PPIx::PodName` - But it isn't, because it doesn't extract from `POD`, only returns data that may be useful **FOR** `POD`
+- `PPIx::ModuleName` - But it kinda isn't either, because its more generic than that and is tailored to extracting "a name" out of any PPI Document, and they're _NOT_ all modules.
+
 # AUTHOR
 
 Kent Fredric <kentnl@cpan.org>
