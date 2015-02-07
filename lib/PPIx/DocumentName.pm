@@ -12,6 +12,9 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 use PPI::Util qw( _Document );
 
+
+
+
 ## Exporter Interface
 use Exporter 5.57 qw( import );
 our @EXPORT_OK = qw( extract_docname extract_docname_via_statement extract_docname_via_comment );
@@ -123,6 +126,8 @@ However, it also supports extraction of an override statement in the form:
 Which may be more applicable for documents that lack a C<package> statement, or the C<package>
 statement may be "wrong", but they still need the document parsed under the guise of having a name
 ( for purposes such as POD )
+
+=for Pod::Coverage extract_docname extract_docname_via_statement extract_docname_via_comment
 
 =for Pod::Coverage log_info log_debug log_trace
 
