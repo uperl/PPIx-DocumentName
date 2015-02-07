@@ -12,16 +12,6 @@ our $VERSION = '0.001000';
 
 use PPI::Util qw( _Document );
 
-=for Pod::Coverage extract_docname extract_docname_via_statement extract_docname_via_comment
-=cut
-
-## Exporter Interface
-use Exporter 5.57 qw( import );
-our @EXPORT_OK = qw( extract_docname extract_docname_via_statement extract_docname_via_comment );
-sub extract_docname               { __PACKAGE__->extract(@_) }
-sub extract_docname_via_statement { __PACKAGE__->extract_via_statement(@_) }
-sub extract_docname_via_comment   { __PACKAGE__->extract_via_comment(@_) }
-
 =for Pod::Coverage log_info log_debug log_trace
 =cut
 
@@ -157,12 +147,6 @@ The recommended approach is simply:
 
   # Get a PPI Document Somehow
   return PPIx::DocumentName->extract( $ppi_document );
-
-However, if you require multiple invocations of this, that could quickly become tiresome.
-
-  use PPIx::DocumentName qw( extract_docname );
-
-  return extract_docname( $ppi_document );
 
 =head1 ALTERNATIVE NAMES
 

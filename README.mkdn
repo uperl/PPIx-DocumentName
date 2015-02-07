@@ -31,12 +31,6 @@ The recommended approach is simply:
     # Get a PPI Document Somehow
     return PPIx::DocumentName->extract( $ppi_document );
 
-However, if you require multiple invocations of this, that could quickly become tiresome.
-
-    use PPIx::DocumentName qw( extract_docname );
-
-    return extract_docname( $ppi_document );
-
 # METHODS
 
 ## extract
