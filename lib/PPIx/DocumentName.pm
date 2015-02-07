@@ -190,7 +190,7 @@ any of the parameters C<< PPI::Document->new() >> understands.
 
 This will only extract C<PODNAME: > comment based document names.
 
-C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-upcast if it is
+C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
 
 =for Pod::Coverage extract_docname extract_docname_via_statement extract_docname_via_comment
