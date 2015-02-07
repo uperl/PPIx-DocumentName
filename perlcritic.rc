@@ -126,6 +126,7 @@ allow_includes = 1
 
 [Documentation::PodSpelling]
 spell_command = aspell list --lang en_US
+stop_words = PPI
 
 [Documentation::ProhibitAdjacentLinks]
 
@@ -328,16 +329,16 @@ allowed_pragmata = diagnostics feature perlversion strict warnings utf8
 
 [Subroutines::ProhibitReturnSort]
 
-[Subroutines::ProhibitSubroutinePrototypes]
+[-Subroutines::ProhibitSubroutinePrototypes]
 
 [Subroutines::ProhibitUnusedPrivateSubroutines]
 private_name_regex = _(?!build_)\w
 
 [Subroutines::ProtectPrivateSubs]
 
-[Subroutines::RequireArgUnpacking]
+[-Subroutines::RequireArgUnpacking]
 
-[Subroutines::RequireFinalReturn]
+[-Subroutines::RequireFinalReturn]
 
 [TestingAndDebugging::ProhibitNoStrict]
 

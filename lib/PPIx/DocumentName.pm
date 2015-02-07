@@ -44,6 +44,38 @@ BEGIN {
 }
 
 ## OO
+
+
+
+
+
+
+
+
+
+
+
+
+
+sub extract {
+  my ( $self, $ppi_document ) = @_;
+  my $docname = $self->extract_via_comment($ppi_document)
+    || $self->extract_via_statement($ppi_document);
+
+  return $docname;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 sub extract_via_statement {
   my ( undef, $ppi_document ) = @_;
 
@@ -61,6 +93,17 @@ sub extract_via_statement {
   }
   return $pkg_node->namespace;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 sub extract_via_comment {
   my ( undef, $ppi_document ) = @_;
@@ -87,13 +130,6 @@ sub extract_via_comment {
   return $content;
 }
 
-sub extract {
-  my ( $self, $ppi_document ) = @_;
-  my $docname = $self->extract_via_comment($ppi_document)
-    || $self->extract_via_statement($ppi_document);
-
-  return $docname;
-}
 
 1;
 
@@ -126,6 +162,36 @@ However, it also supports extraction of an override statement in the form:
 Which may be more applicable for documents that lack a C<package> statement, or the C<package>
 statement may be "wrong", but they still need the document parsed under the guise of having a name
 ( for purposes such as POD )
+
+=head1 METHODS
+
+=head2 extract
+
+  my $docname = PPIx::DocumentName->extract( $ppi_document );
+
+This will first attempt to extract a name via the C<PODNAME: > comment notation,
+and then fallback to using a C<package Package::Name> statement.
+
+C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-upcast if it is
+any of the parameters C<< PPI::Document->new() >> understands.
+
+=head2 extract_via_statement
+
+  my $docname = PPIx::DocumentName->extract_via_statement( $ppi_document );
+
+This only extract C<package Package::Name> statement based document names.
+
+C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-upcast if it is
+any of the parameters C<< PPI::Document->new() >> understands.
+
+=head2 extract_via_comment
+
+  my $docname = PPIx::DocumentName->extract_via_comment( $ppi_document );
+
+This will only exract C<PODNAME: > comment based document names.
+
+C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-upcast if it is
+any of the parameters C<< PPI::Document->new() >> understands.
 
 =for Pod::Coverage extract_docname extract_docname_via_statement extract_docname_via_comment
 
