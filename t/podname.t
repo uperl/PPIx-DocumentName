@@ -11,6 +11,8 @@ use PPI::Util qw( _Document );
 my $sample = <<'EOF';
 package Foo::Bar;
 
+# PODNAME: Override
+
 1;
 EOF
 
@@ -23,13 +25,19 @@ EOF
 {
   note "Composite Extraction";
   my $result = PPIx::DocumentName->extract( \$sample );
-  is( $result, 'Foo::Bar', "Extracted Document matches expectation" );
+  is( $result, 'Override', "Extracted Document matches expectation" );
 }
 
 {
   note "Statement Extraction";
   my $result = PPIx::DocumentName->extract_via_statement( \$sample );
   is( $result, 'Foo::Bar', "Extracted Document matches expectation" );
+}
+
+{
+  note "PODNAME Comment Extraction";
+  my $result = PPIx::DocumentName->extract_via_comment( \$sample );
+  is( $result, 'Override', "Extracted Document matches expectation" );
 }
 
 done_testing;
