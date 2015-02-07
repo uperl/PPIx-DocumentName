@@ -4,7 +4,7 @@ PPIx::DocumentName - Utility to extract a name from a PPI Document
 
 # VERSION
 
-version 0.001000
+version 0.001001
 
 # DESCRIPTION
 
