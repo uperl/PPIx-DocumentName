@@ -206,6 +206,42 @@ Other things I could have called this
 
 =back
 
+=head1 SIMILAR MODULES
+
+Modules that are perceptibly similar to this ones tasks ( but are subtly different in important ways ) are as follows:
+
+=over 4
+
+=item * L<< C<Module::Metadata>|Module::Metadata >> - Module::Metadata does a bunch of things this module explicitly doesn't want or need to
+do, and it lacks a bunch of features this module needs.
+
+Module::Metadata is predominantly concerned with extracting I<ALL> namespaces and I<ALL> versions from a module for the purposes of indexing
+and indexing related tasks. This also means it has a notion of "hideable" namespaces with the purpose of hiding them from C<CPAN>.
+
+Due to being core as well, it is not able to use C<PPI> for its features, so the above concerns mean it is also mostly based on careful
+regex parsing, which can easily be false tripped on miscelaneous in document content.
+
+Whereas C<PPIx::DocumentName> only cares about the I<first> name of a given class, and it cares much more about nested strings being ignored
+intentionally. It also has a motive to show names I<even> for documents that won't be indexed ( And C<Module::Metadata> has no short term plans on exposing
+hidden document names ).
+
+C<PPIx::DocumentName> also has special logic for the C<PODNAME: > declaration, and may eventually support other mechanisms for extracting
+a name from "a document", which will be not in C<Module::Metadata>'s collection of desired usecases.
+
+=item * L<< C<Module::Extract::Namespaces>|Module::Extract::Namespaces >> - This is probably closer to C<PPIx::DocumentName>'s requirements,
+using C<PPI> to extract content.
+
+Most of C<Module::Extract::Namespaces>'s code seems to be glue for legacy versions of C<PPI> and the remaining
+code is for loading modules from C<@INC> ( Which we don't need ), or special casing IO ( Which is also not necessary, as this module assumes
+you're moderately acquainted with C<PPI> and can do IO yourself )
+
+C<Module::Extract::Namespaces> also oblitterates document comments, which of course stands in the way of our auxilliary requirements
+re C<PODNAME: > declarations.
+
+It will also not be flexible enough to support other name extraction features we may eventually add.
+
+And like C<Module::Metadata>, it also focuses on extracting I<many> C<package> declarations where this module prefers to extract only the I<first>.
+
 =head1 AUTHOR
 
 Kent Fredric <kentnl@cpan.org>
