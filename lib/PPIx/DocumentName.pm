@@ -254,7 +254,7 @@ to extract only the I<first>.
 The bulk of this logic was extrapolated from L<< C<Pod::Weaver::Section::Name>|Pod::Weaver::Section::Name >>
 and a related role, L<< C<Pod::Weaver::Role::StringFromComment>|Pod::Weaver::Role::StringFromComment >>.
 
-Thanks to C<RJBS> for the initial implementation and C<DROLSKY> for some of the improvement patches.
+Thanks to L<< C<RJBS>|cpan:///author/RJBS >> for the initial implementation and L<< C<DROLSKY>|cpan:///author/DROLSKY >> for some of the improvement patches.
 
 =head1 AUTHOR
 
