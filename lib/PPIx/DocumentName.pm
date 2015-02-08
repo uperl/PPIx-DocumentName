@@ -4,7 +4,7 @@ use warnings;
 
 package PPIx::DocumentName;
 
-our $VERSION = '0.001001';
+our $VERSION = '0.001002';
 
 # ABSTRACT: Utility to extract a name from a PPI Document
 
@@ -135,7 +135,7 @@ PPIx::DocumentName - Utility to extract a name from a PPI Document
 
 =head1 VERSION
 
-version 0.001001
+version 0.001002
 
 =head1 DESCRIPTION
 
@@ -254,7 +254,7 @@ to extract only the I<first>.
 The bulk of this logic was extrapolated from L<< C<Pod::Weaver::Section::Name>|Pod::Weaver::Section::Name >>
 and a related role, L<< C<Pod::Weaver::Role::StringFromComment>|Pod::Weaver::Role::StringFromComment >>.
 
-Thanks to C<RJBS> for the initial implementation and C<DROLSKY> for some of the improvement patches.
+Thanks to L<< C<RJBS>|cpan:///author/RJBS >> for the initial implementation and L<< C<DROLSKY>|cpan:///author/DROLSKY >> for some of the improvement patches.
 
 =head1 AUTHOR
 
