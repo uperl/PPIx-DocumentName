@@ -126,7 +126,7 @@ allow_includes = 1
 
 [Documentation::PodSpelling]
 spell_command = aspell list --lang en_US
-stop_words = PPI
+stop_words = PPI hideable regex
 
 [Documentation::ProhibitAdjacentLinks]
 
