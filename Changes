@@ -1,8 +1,9 @@
 Release history for PPIx-ModuleName
 
-0.001001 2015-02-08T06:11:03Z eba6e3f
+0.001001 2015-02-08T06:46:52Z a9afc04
  [Documentation]
  - Document similar modules and why this module is necessary
+ - Acknowledge source material
 
 0.001000 2015-02-07T10:43:55Z e7639e3
  - First version.
