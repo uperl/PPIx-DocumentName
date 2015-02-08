@@ -38,7 +38,7 @@ The recommended approach is simply:
     my $docname = PPIx::DocumentName->extract( $ppi_document );
 
 This will first attempt to extract a name via the `PODNAME: ` comment notation,
-and then fallback to using a `package Package::Name` statement.
+and then fall back to using a `package Package::Name` statement.
 
 `$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
 any of the parameters `PPI::Document->new()` understands.
@@ -65,8 +65,47 @@ any of the parameters `PPI::Document->new()` understands.
 
 Other things I could have called this
 
-- `PPIx::PodName` - But it isn't, because it doesn't extract from `POD`, only returns data that may be useful **FOR** `POD`
-- `PPIx::ModuleName` - But it kinda isn't either, because its more generic than that and is tailored to extracting "a name" out of any PPI Document, and they're _NOT_ all modules.
+- `PPIx::PodName` - But it isn't, because it doesn't extract from `POD`, only returns data that may be useful **FOR**
+`POD`
+- `PPIx::ModuleName` - But it kinda isn't either, because its more generic than that and is tailored to extracting
+"a name" out of any PPI Document, and they're _NOT_ all modules.
+
+# SIMILAR MODULES
+
+Modules that are perceptibly similar to this ones tasks ( but are subtly different in important ways ) are as follows:
+
+- [`Module::Metadata`](https://metacpan.org/pod/Module::Metadata) - Module::Metadata does a bunch of things this module explicitly doesn't
+want or need to do, and it lacks a bunch of features this module needs.
+
+    Module::Metadata is predominantly concerned with extracting _ALL_ name spaces and _ALL_ versions from a module for the
+    purposes of indexing and indexing related tasks. This also means it has a notion of "hideable" name spaces with the purpose
+    of hiding them from `CPAN`.
+
+    Due to being core as well, it is not able to use `PPI` for its features, so the above concerns mean it is also mostly
+    based on careful regex parsing, which can easily be false tripped on miscellaneous in document content.
+
+    Whereas `PPIx::DocumentName` only cares about the _first_ name of a given class, and it cares much more about nested
+    strings being ignored intentionally. It also has a motive to show names _even_ for documents that won't be indexed
+    ( And `Module::Metadata` has no short term plans on exposing hidden document names ).
+
+    `PPIx::DocumentName` also has special logic for the `PODNAME: ` declaration, and may eventually support other
+    mechanisms for extracting a name from "a document", which will be not in `Module::Metadata`'s collection of desired
+    use-cases.
+
+- [`Module::Extract::Namespaces`](https://metacpan.org/pod/Module::Extract::Namespaces) - This is probably closer to
+`PPIx::DocumentName`'s requirements, using `PPI` to extract content.
+
+    Most of `Module::Extract::Namespaces`'s code seems to be glue for legacy versions of `PPI` and the remaining
+    code is for loading modules from `@INC` ( Which we don't need ), or special casing IO ( Which is also not necessary,
+    as this module assumes you're moderately acquainted with `PPI` and can do IO yourself )
+
+    `Module::Extract::Namespaces` also obliterates document comments, which of course stands in the way of our auxiliary
+    requirements re `PODNAME: ` declarations.
+
+    It will also not be flexible enough to support other name extraction features we may eventually add.
+
+    And like `Module::Metadata`, it also focuses on extracting _many_ `package` declarations where this module prefers
+    to extract only the _first_.
 
 # AUTHOR
 

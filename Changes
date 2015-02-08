@@ -1,6 +1,8 @@
 Release history for PPIx-ModuleName
 
 {{$NEXT}}
+ [Documentation]
+ - Document similar modules and why this module is necessary
 
 0.001000 2015-02-07T10:43:55Z e7639e3
  - First version.
