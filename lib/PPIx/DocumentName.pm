@@ -169,7 +169,7 @@ The recommended approach is simply:
   my $docname = PPIx::DocumentName->extract( $ppi_document );
 
 This will first attempt to extract a name via the C<PODNAME: > comment notation,
-and then fallback to using a C<package Package::Name> statement.
+and then fall back to using a C<package Package::Name> statement.
 
 C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
@@ -217,12 +217,12 @@ Modules that are perceptibly similar to this ones tasks ( but are subtly differe
 =item * L<< C<Module::Metadata>|Module::Metadata >> - Module::Metadata does a bunch of things this module explicitly doesn't
 want or need to do, and it lacks a bunch of features this module needs.
 
-Module::Metadata is predominantly concerned with extracting I<ALL> namespaces and I<ALL> versions from a module for the
-purposes of indexing and indexing related tasks. This also means it has a notion of "hideable" namespaces with the purpose
+Module::Metadata is predominantly concerned with extracting I<ALL> name spaces and I<ALL> versions from a module for the
+purposes of indexing and indexing related tasks. This also means it has a notion of "hideable" name spaces with the purpose
 of hiding them from C<CPAN>.
 
 Due to being core as well, it is not able to use C<PPI> for its features, so the above concerns mean it is also mostly
-based on careful regex parsing, which can easily be false tripped on miscelaneous in document content.
+based on careful regex parsing, which can easily be false tripped on miscellaneous in document content.
 
 Whereas C<PPIx::DocumentName> only cares about the I<first> name of a given class, and it cares much more about nested
 strings being ignored intentionally. It also has a motive to show names I<even> for documents that won't be indexed
@@ -230,7 +230,7 @@ strings being ignored intentionally. It also has a motive to show names I<even> 
 
 C<PPIx::DocumentName> also has special logic for the C<PODNAME: > declaration, and may eventually support other
 mechanisms for extracting a name from "a document", which will be not in C<Module::Metadata>'s collection of desired
-usecases.
+use-cases.
 
 =item * L<< C<Module::Extract::Namespaces>|Module::Extract::Namespaces >> - This is probably closer to
 C<PPIx::DocumentName>'s requirements, using C<PPI> to extract content.
@@ -239,7 +239,7 @@ Most of C<Module::Extract::Namespaces>'s code seems to be glue for legacy versio
 code is for loading modules from C<@INC> ( Which we don't need ), or special casing IO ( Which is also not necessary,
 as this module assumes you're moderately acquainted with C<PPI> and can do IO yourself )
 
-C<Module::Extract::Namespaces> also oblitterates document comments, which of course stands in the way of our auxilliary
+C<Module::Extract::Namespaces> also obliterates document comments, which of course stands in the way of our auxiliary
 requirements re C<PODNAME: > declarations.
 
 It will also not be flexible enough to support other name extraction features we may eventually add.
