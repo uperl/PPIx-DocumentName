@@ -1,5 +1,7 @@
 Release history for PPIx-ModuleName
 
+0.001003 2015-02-08T12:29:24Z b71f66b
+
 0.001002 2015-02-08T12:20:42Z 38739e1
  [Documentation]
  - Use experimental cpan:// uri's to link to authors (https://metacpan.org/pod/URI::cpan)

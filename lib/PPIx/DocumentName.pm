@@ -4,7 +4,7 @@ use warnings;
 
 package PPIx::DocumentName;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # ABSTRACT: Utility to extract a name from a PPI Document
 
@@ -135,7 +135,7 @@ PPIx::DocumentName - Utility to extract a name from a PPI Document
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 DESCRIPTION
 
