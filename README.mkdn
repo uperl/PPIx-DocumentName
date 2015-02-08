@@ -112,7 +112,7 @@ want or need to do, and it lacks a bunch of features this module needs.
 The bulk of this logic was extrapolated from [`Pod::Weaver::Section::Name`](https://metacpan.org/pod/Pod::Weaver::Section::Name)
 and a related role, [`Pod::Weaver::Role::StringFromComment`](https://metacpan.org/pod/Pod::Weaver::Role::StringFromComment).
 
-Thanks to `RJBS` for the initial implementation and `DROLSKY` for some of the improvement patches.
+Thanks to [`RJBS`](cpan:///author/RJBS) for the initial implementation and [`DROLSKY`](cpan:///author/DROLSKY) for some of the improvement patches.
 
 # AUTHOR
 
