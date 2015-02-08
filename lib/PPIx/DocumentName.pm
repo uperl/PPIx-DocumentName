@@ -249,6 +249,13 @@ to extract only the I<first>.
 
 =back
 
+=head1 ACKNOWLEDGEMENTS
+
+The bulk of this logic was extrapolated from L<< C<Pod::Weaver::Section::Name>|Pod::Weaver::Section::Name >>
+and a related role, L<< C<Pod::Weaver::Role::StringFromComment>|Pod::Weaver::Role::StringFromComment >>.
+
+Thanks to C<RJBS> for the initial implementation and C<DROLSKY> for some of the improvement patches.
+
 =head1 AUTHOR
 
 Kent Fredric <kentnl@cpan.org>
