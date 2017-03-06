@@ -1,6 +1,8 @@
 Release history for PPIx-ModuleName
 
 {{$NEXT}}
+
+0.001003 2017-03-06T03:29:51Z edb00ab
  [Bugfix]
  - Fix tooling issues with -Ddefault_inc_excludes_dot
  - Closes https://github.com/kentnl/PPIx-DocumentName/issues/1
