@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test::More tests => 4;
 
 # ABSTRACT: Basic tests
 
@@ -35,6 +35,3 @@ EOF
   my $result = PPIx::DocumentName->extract_via_comment( \$sample );
   is( $result, 'Override', "->extract_via_comment() gets PODNAME" );
 }
-
-done_testing;
-
