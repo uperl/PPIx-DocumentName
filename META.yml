@@ -20,7 +20,7 @@ name: PPIx-DocumentName
 provides:
   PPIx::DocumentName:
     file: lib/PPIx/DocumentName.pm
-    version: '0.001003'
+    version: '0.001004'
 requires:
   Carp: '0'
   PPI::Util: '0'
@@ -31,4 +31,4 @@ resources:
   bugtracker: https://github.com/kentnl/PPIx-DocumentName/issues
   homepage: https://github.com/kentnl/PPIx-DocumentName
   repository: https://github.com/kentnl/PPIx-DocumentName.git
-version: '0.001003'
+version: '0.001004'
