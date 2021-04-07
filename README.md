@@ -1,10 +1,6 @@
-# NAME
+# PPIx::DocumentName ![linux](https://github.com/uperl/PPIx-DocumentName/workflows/linux/badge.svg) ![macos](https://github.com/uperl/PPIx-DocumentName/workflows/macos/badge.svg) ![windows](https://github.com/uperl/PPIx-DocumentName/workflows/windows/badge.svg) ![cygwin](https://github.com/uperl/PPIx-DocumentName/workflows/cygwin/badge.svg) ![msys2-mingw](https://github.com/uperl/PPIx-DocumentName/workflows/msys2-mingw/badge.svg)
 
-PPIx::DocumentName - Utility to extract a name from a PPI Document
-
-# VERSION
-
-version 0.001004
+Utility to extract a name from a PPI Document
 
 # DESCRIPTION
 
@@ -12,11 +8,15 @@ This module contains a few utilities for extracting a "name" out of an arbitrary
 
 Typically, this is the `module` name, in the form:
 
-    package Foo
+```
+package Foo
+```
 
 However, it also supports extraction of an override statement in the form:
 
-    # PODNAME: OverrideName::Goes::Here
+```
+# PODNAME: OverrideName::Goes::Here
+```
 
 Which may be more applicable for documents that lack a `package` statement, or the `package`
 statement may be "wrong", but they still need the document parsed under the guise of having a name
@@ -26,16 +26,20 @@ statement may be "wrong", but they still need the document parsed under the guis
 
 The recommended approach is simply:
 
-    use PPIx::DocumentName;
+```perl
+use PPIx::DocumentName;
 
-    # Get a PPI Document Somehow
-    return PPIx::DocumentName->extract( $ppi_document );
+# Get a PPI Document Somehow
+return PPIx::DocumentName->extract( $ppi_document );
+```
 
 # METHODS
 
 ## extract
 
-    my $docname = PPIx::DocumentName->extract( $ppi_document );
+```perl
+my $docname = PPIx::DocumentName->extract( $ppi_document );
+```
 
 This will first attempt to extract a name via the `PODNAME: ` comment notation,
 and then fall back to using a `package Package::Name` statement.
@@ -45,7 +49,9 @@ any of the parameters `PPI::Document->new()` understands.
 
 ## extract\_via\_statement
 
-    my $docname = PPIx::DocumentName->extract_via_statement( $ppi_document );
+```perl
+my $docname = PPIx::DocumentName->extract_via_statement( $ppi_document );
+```
 
 This only extract `package Package::Name` statement based document names.
 
@@ -54,7 +60,9 @@ any of the parameters `PPI::Document->new()` understands.
 
 ## extract\_via\_comment
 
-    my $docname = PPIx::DocumentName->extract_via_comment( $ppi_document );
+```perl
+my $docname = PPIx::DocumentName->extract_via_comment( $ppi_document );
+```
 
 This will only extract `PODNAME: ` comment based document names.
 
@@ -114,13 +122,14 @@ and a related role, [`Pod::Weaver::Role::StringFromComment`](https://metacpan.or
 
 Thanks to [`RJBS`](cpan:///author/RJBS) for the initial implementation and [`DROLSKY`](cpan:///author/DROLSKY) for some of the improvement patches.
 
-# AUTHOR
+# AUTHORS
 
-Kent Fredric <kentnl@cpan.org>
+- Kent Fredric <kentnl@cpan.org>
+- Graham Ollis <plicease@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2017 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2015-2021 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

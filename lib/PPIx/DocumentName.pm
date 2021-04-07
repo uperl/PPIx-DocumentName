@@ -12,6 +12,8 @@ our $VERSION = '0.001004';
 
 use PPI::Util qw( _Document );
 
+=for stopwords Ollis
+
 =for Pod::Coverage log_info log_debug log_trace
 =cut
 

@@ -1,3 +1,4 @@
 /.build
 /PPIx-DocumentName-*
 /tmp/
+*.swp
