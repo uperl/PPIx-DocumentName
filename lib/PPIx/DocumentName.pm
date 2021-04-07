@@ -4,11 +4,8 @@ use warnings;
 
 package PPIx::DocumentName;
 
-our $VERSION = '0.001004';
-
 # ABSTRACT: Utility to extract a name from a PPI Document
-
-# AUTHORITY
+# VERSION
 
 use PPI::Util qw( _Document );
 
