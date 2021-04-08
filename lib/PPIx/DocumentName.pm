@@ -163,10 +163,10 @@ statement may be "wrong", but they still need the document parsed under the guis
 
 The recommended approach is simply:
 
-  use PPIx::DocumentName;
+ use PPIx::DocumentName;
  
-  # Get a PPI Document Somehow
-  return PPIx::DocumentName->extract( $ppi_document );
+ # Get a PPI Document Somehow
+ return PPIx::DocumentName->extract( $ppi_document );
 
 =head1 ALTERNATIVE NAMES
 
