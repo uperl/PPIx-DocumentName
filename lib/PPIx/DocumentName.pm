@@ -34,6 +34,9 @@ BEGIN {
 sub import {
   my(undef, %args) = @_;
   if(defined $args{'-api'}) {
+    if($args{'-api'} != 0 && $args{'-api'} != 1) {
+      Carp::croak("illegal api level: $args{'-api'}");
+    }
     $^H{'PPIx::DocumentName/api'} = $args{'-api'};  ## no critic (Variables::RequireLocalizedPunctuationVars)
   }
 }
@@ -63,12 +66,14 @@ any of the parameters C<< PPI::Document->new() >> understands.
 sub extract {
   my ( $self, $ppi_document ) = @_;
 
-  my $api = _api(undef);
-
-  my $docname = $self->extract_via_comment($ppi_document, $api)
-    || $self->extract_via_statement($ppi_document, $api);
-
-  return $docname;
+  if (_api(undef)) {
+    my @result = $self->extract_via_comment($ppi_document, 1);
+    @result = $self->extract_via_statement($ppi_document, 1) unless defined $result[0];
+    return wantarray ? @result : $result[0];
+  } else {
+    my $result = $self->extract_via_comment($ppi_document, 0) || $self->extract_via_statement($ppi_document, 0);
+    return $result;
+  }
 }
 
 =method extract_via_statement
@@ -93,13 +98,16 @@ sub extract_via_statement {
   my $pkg_node = $dom->find_first('PPI::Statement::Package');
   if ( not $pkg_node ) {
     log_debug { "No PPI::Statement::Package found in <<$ppi_document>>" };
-    return;
+    # The old API was inconsistant here, for just this method, returns
+    # empty list on failure.  This is unfortunately different from
+    # extract_via_comment.
+    return 0 == $api ? () : wantarray ? (undef,undef) : undef;
   }
   if ( not $pkg_node->namespace ) {
     log_debug { "PPI::Statement::Package $pkg_node has empty namespace in <<$ppi_document>>" };
-    return;
+    return 0 == $api ? () : wantarray ? (undef,undef) : undef;
   }
-  return $pkg_node->namespace;
+  return 1 == $api && wantarray ? ($pkg_node->namespace, $pkg_node) : $pkg_node->namespace;
 }
 
 =method extract_via_comment
@@ -117,15 +125,17 @@ sub extract_via_comment {
   my ( undef, $ppi_document, $api ) = @_;
 
   $api = _api($api);
+  my $node;
 
   my $regex = qr{ ^ \s* \#+ \s* PODNAME: \s* (.+) $ }x;    ## no critic (RegularExpressions)
   my $content;
   my $finder = sub {
-    my $node = $_[1];
-    return 0 unless $node->isa('PPI::Token::Comment');
-    log_trace { "Found comment node $node" };
-    if ( $node->content =~ $regex ) {
+    my $maybe = $_[1];
+    return 0 unless $maybe->isa('PPI::Token::Comment');
+    log_trace { "Found comment node $maybe" };
+    if ( $maybe->content =~ $regex ) {
       $content = $1;
+      $node = $maybe;
       return 1;
     }
     return 0;
@@ -138,7 +148,7 @@ sub extract_via_comment {
 
   log_debug { "<<$ppi_document>> has no PODNAME comment" } if not $content;
 
-  return $content;
+  return 1 == $api && wantarray ? ($content, $node) : $content;
 }
 
 1;
@@ -167,6 +177,13 @@ The recommended approach is simply:
  
  # Get a PPI Document Somehow
  return PPIx::DocumentName->extract( $ppi_document );
+
+=head1 CAVEATS
+
+Under the older API (C<< -api => 0 >>; the default), C<extract_via_statement>, unlike the other
+methods in this module, returns empty list instead of undef when it does find a name.  When
+using the newer API (C<< -api => 1 >>), calls are consistent in scalar and list context.  New
+code should therefore use the newer API.
 
 =head1 ALTERNATIVE NAMES
 

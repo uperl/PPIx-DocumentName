@@ -69,6 +69,13 @@ This will only extract `PODNAME: ` comment based document names.
 `$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
 any of the parameters `PPI::Document->new()` understands.
 
+# CAVEATS
+
+Under the older API (`-api => 0`; the default), `extract_via_statement`, unlike the other
+methods in this module, returns empty list instead of undef when it does find a name.  When
+using the newer API (`-api => 1`), calls are consistent in scalar and list context.  New
+code should therefore use the newer API.
+
 # ALTERNATIVE NAMES
 
 Other things I could have called this
