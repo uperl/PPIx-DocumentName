@@ -31,6 +31,21 @@ BEGIN {
   }
 }
 
+sub import {
+  my(undef, %args) = @_;
+  if(defined $args{'-api'}) {
+    $^H{'PPIx::DocumentName/api'} = $args{'-api'};  ## no critic (Variables::RequireLocalizedPunctuationVars)
+  }
+}
+
+sub _api {
+  my ( $api ) = @_;
+  my $hh = (caller 1)[10];
+  $api = $hh->{'PPIx::DocumentName/api'} if defined $hh && !defined $api;
+  $api = 0 unless defined $api;
+  return $api;
+}
+
 ## OO
 
 =method extract
@@ -47,8 +62,11 @@ any of the parameters C<< PPI::Document->new() >> understands.
 
 sub extract {
   my ( $self, $ppi_document ) = @_;
-  my $docname = $self->extract_via_comment($ppi_document)
-    || $self->extract_via_statement($ppi_document);
+
+  my $api = _api(undef);
+
+  my $docname = $self->extract_via_comment($ppi_document, $api)
+    || $self->extract_via_statement($ppi_document, $api);
 
   return $docname;
 }
@@ -65,7 +83,9 @@ any of the parameters C<< PPI::Document->new() >> understands.
 =cut
 
 sub extract_via_statement {
-  my ( undef, $ppi_document ) = @_;
+  my ( undef, $ppi_document, $api ) = @_;
+
+  $api = _api($api);
 
   # Keep alive until done
   # https://github.com/adamkennedy/PPI/issues/112
@@ -94,7 +114,10 @@ any of the parameters C<< PPI::Document->new() >> understands.
 =cut
 
 sub extract_via_comment {
-  my ( undef, $ppi_document ) = @_;
+  my ( undef, $ppi_document, $api ) = @_;
+
+  $api = _api($api);
+
   my $regex = qr{ ^ \s* \#+ \s* PODNAME: \s* (.+) $ }x;    ## no critic (RegularExpressions)
   my $content;
   my $finder = sub {
@@ -141,7 +164,7 @@ statement may be "wrong", but they still need the document parsed under the guis
 The recommended approach is simply:
 
   use PPIx::DocumentName;
-
+ 
   # Get a PPI Document Somehow
   return PPIx::DocumentName->extract( $ppi_document );
 
