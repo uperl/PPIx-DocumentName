@@ -26,7 +26,10 @@ EOF
     my @result = PPIx::DocumentName->extract( \$sample );
     subtest '->extract() is package statement (list context)' => sub {
       is $result[0], 'Foo::Bar';
-      isa_ok $result[1], 'PPI::Statement::Package';
+      isa_ok $result[1], 'PPIx::DocumentName::Result';
+      is $result[1]->name, 'Foo::Bar';
+      isa_ok $result[1]->document, 'PPI::Document';
+      isa_ok $result[1]->node, 'PPI::Statement::Package';
       is scalar(@result), 2;
     };
   }
@@ -40,7 +43,10 @@ EOF
     my @result = PPIx::DocumentName->extract_via_statement( \$sample );
     subtest '->extract_via_statement() is correct (list context)' => sub {
       is $result[0], 'Foo::Bar';
-      isa_ok $result[1], 'PPI::Statement::Package';
+      isa_ok $result[1], 'PPIx::DocumentName::Result';
+      is $result[1]->name, 'Foo::Bar';
+      isa_ok $result[1]->document, 'PPI::Document';
+      isa_ok $result[1]->node, 'PPI::Statement::Package';
       is scalar(@result), 2;
     };
   }
@@ -82,7 +88,10 @@ EOF
     my @result = PPIx::DocumentName->extract( \$sample );
     subtest '->extract() gets comment override (list context)' => sub {
       is $result[0], 'Override';
-      isa_ok $result[1], 'PPI::Token::Comment';
+      isa_ok $result[1], 'PPIx::DocumentName::Result';
+      is $result[1]->name, 'Override';
+      isa_ok $result[1]->document, 'PPI::Document';
+      isa_ok $result[1]->node, 'PPI::Token::Comment';
       is scalar(@result), 2;
     };
   }
@@ -96,7 +105,10 @@ EOF
     my @result = PPIx::DocumentName->extract_via_statement( \$sample );
     subtest '->extract_via_statement() gets package statement (list context)' => sub {
       is $result[0], 'Foo::Bar';
-      isa_ok $result[1], 'PPI::Statement::Package';
+      isa_ok $result[1], 'PPIx::DocumentName::Result';
+      is $result[1]->name, 'Foo::Bar';
+      isa_ok $result[1]->document, 'PPI::Document';
+      isa_ok $result[1]->node, 'PPI::Statement::Package';
       is scalar(@result), 2;
     };
   }
@@ -110,7 +122,10 @@ EOF
     my @result = PPIx::DocumentName->extract_via_comment( \$sample );
     subtest '->extract_via_comment() gets PODNAME (list context)' => sub {
       is $result[0], 'Override';
-      isa_ok $result[1], 'PPI::Token::Comment';
+      isa_ok $result[1], 'PPIx::DocumentName::Result';
+      is $result[1]->name, 'Override';
+      isa_ok $result[1]->document, 'PPI::Document';
+      isa_ok $result[1]->node, 'PPI::Token::Comment';
       is scalar(@result), 2;
     };
   }
