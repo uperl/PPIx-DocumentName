@@ -54,13 +54,10 @@ sub import {
 
 sub _api {
   my ( $api ) = @_;
-  if($] < 5.010)
-  {
+  if($] < 5.010) {
     my($package) = caller 1;
     $api = $callers{$package} unless defined $api;
-  }
-  else
-  {
+  } else {
     my $hh = (caller 1)[10];
     $api = $hh->{'PPIx::DocumentName/api'} if defined $hh && !defined $api;
   }
@@ -90,15 +87,9 @@ any of the parameters C<< PPI::Document->new() >> understands.
 
 sub extract {
   my ( $self, $ppi_document ) = @_;
-
-  if (_api(undef)) {
-    my @result = $self->extract_via_comment($ppi_document, 1);
-    @result = $self->extract_via_statement($ppi_document, 1) unless defined $result[0];
-    return wantarray ? @result : $result[0];
-  } else {
-    my $result = $self->extract_via_comment($ppi_document, 0) || $self->extract_via_statement($ppi_document, 0);
-    return $result;
-  }
+  my $api = _api(undef);
+  my $result = $self->extract_via_comment($ppi_document, $api) || $self->extract_via_statement($ppi_document, $api);
+  return $result;
 }
 
 =method extract_via_statement
