@@ -64,15 +64,15 @@ and then fall back to using a `package Package::Name` statement.
 `$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
 any of the parameters `PPI::Document->new()` understands.
 
-The `$result` is the found name under `-api => 0` and a [PPIx::DocumentName::Result](https://metacpan.org/pod/PPIx::DocumentName::Result) object
+The `$result` is the found name as a string under `-api => 0` and a [PPIx::DocumentName::Result](https://metacpan.org/pod/PPIx::DocumentName::Result) object
 under `-api => 1`.  If the name is not found, then it will be `undef` (with either API).
-Note that [PPIx::DocumentName::Result](https://metacpan.org/pod/PPIx::DocumentName::Result) is stringified to the name found, so in many circumstances
+Note that [PPIx::DocumentName::Result](https://metacpan.org/pod/PPIx::DocumentName::Result) is stringified to the found name, so in many circumstances
 the new API can be used in the same way as the old.
 
 ## extract\_via\_statement
 
 ```perl
-my $docname = PPIx::DocumentName->extract_via_statement( $ppi_document );
+my $result = PPIx::DocumentName->extract_via_statement( $ppi_document );
 ```
 
 This only extract `package Package::Name` statement based document names.
@@ -80,16 +80,22 @@ This only extract `package Package::Name` statement based document names.
 `$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
 any of the parameters `PPI::Document->new()` understands.
 
+The `$result` is the found name as a string under `-api => 0` and a [PPIx::DocumentName::Result](https://metacpan.org/pod/PPIx::DocumentName::Result) object
+under `-api => 1`.  If the name is not found, then it will be `undef` (with either API).
+
 ## extract\_via\_comment
 
 ```perl
-my $docname = PPIx::DocumentName->extract_via_comment( $ppi_document );
+my $result = PPIx::DocumentName->extract_via_comment( $ppi_document );
 ```
 
 This will only extract `PODNAME: ` comment based document names.
 
 `$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
 any of the parameters `PPI::Document->new()` understands.
+
+The `$result` is the found name as a string under `-api => 0` and a [PPIx::DocumentName::Result](https://metacpan.org/pod/PPIx::DocumentName::Result) object
+under `-api => 1`.  If the name is not found, then it will be `undef` (with either API).
 
 # CAVEATS
 

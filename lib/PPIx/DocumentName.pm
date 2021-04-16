@@ -83,9 +83,9 @@ and then fall back to using a C<package Package::Name> statement.
 C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
 
-The C<$result> is the found name under C<< -api => 0 >> and a L<PPIx::DocumentName::Result> object
+The C<$result> is the found name as a string under C<< -api => 0 >> and a L<PPIx::DocumentName::Result> object
 under C<< -api => 1 >>.  If the name is not found, then it will be C<undef> (with either API).
-Note that L<PPIx::DocumentName::Result> is stringified to the name found, so in many circumstances
+Note that L<PPIx::DocumentName::Result> is stringified to the found name, so in many circumstances
 the new API can be used in the same way as the old.
 
 =cut
@@ -99,12 +99,15 @@ sub extract {
 
 =method extract_via_statement
 
-  my $docname = PPIx::DocumentName->extract_via_statement( $ppi_document );
+  my $result = PPIx::DocumentName->extract_via_statement( $ppi_document );
 
 This only extract C<package Package::Name> statement based document names.
 
 C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
+
+The C<$result> is the found name as a string under C<< -api => 0 >> and a L<PPIx::DocumentName::Result> object
+under C<< -api => 1 >>.  If the name is not found, then it will be C<undef> (with either API).
 
 =cut
 
@@ -134,12 +137,15 @@ sub extract_via_statement {
 
 =method extract_via_comment
 
-  my $docname = PPIx::DocumentName->extract_via_comment( $ppi_document );
+  my $result = PPIx::DocumentName->extract_via_comment( $ppi_document );
 
 This will only extract C<PODNAME: > comment based document names.
 
 C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
+
+The C<$result> is the found name as a string under C<< -api => 0 >> and a L<PPIx::DocumentName::Result> object
+under C<< -api => 1 >>.  If the name is not found, then it will be C<undef> (with either API).
 
 =cut
 
