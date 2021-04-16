@@ -16,6 +16,8 @@ sub log_info(&@);
 sub log_debug(&@);
 sub log_trace(&@);
 
+my %callers;
+
 BEGIN {
   if ( $INC{'Log/Contextual.pm'} ) {
     ## Hide from autoprereqs
@@ -37,14 +39,29 @@ sub import {
     if($args{'-api'} != 0 && $args{'-api'} != 1) {
       Carp::croak("illegal api level: $args{'-api'}");
     }
-    $^H{'PPIx::DocumentName/api'} = $args{'-api'};  ## no critic (Variables::RequireLocalizedPunctuationVars)
+    if($] < 5.010) {
+      my($package) = caller;
+      $callers{$package} = $args{'-api'};
+      require Carp;
+      Carp::carp("Because of the age of your Perl, -api $args{'-api'} will be package scoped instead of block scoped.  Please upgrade to 5.10 or better.");
+    } else {
+      $^H{'PPIx::DocumentName/api'} = $args{'-api'};  ## no critic (Variables::RequireLocalizedPunctuationVars)
+    }
   }
 }
 
 sub _api {
   my ( $api ) = @_;
-  my $hh = (caller 1)[10];
-  $api = $hh->{'PPIx::DocumentName/api'} if defined $hh && !defined $api;
+  if($] < 5.010)
+  {
+    my($package) = caller 1;
+    $api = $callers{$package} unless defined $api;
+  }
+  else
+  {
+    my $hh = (caller 1)[10];
+    $api = $hh->{'PPIx::DocumentName/api'} if defined $hh && !defined $api;
+  }
   $api = 0 unless defined $api;
   return $api;
 }
