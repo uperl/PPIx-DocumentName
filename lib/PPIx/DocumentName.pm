@@ -215,15 +215,6 @@ Which may be more applicable for documents that lack a C<package> statement, or 
 statement may be "wrong", but they still need the document parsed under the guise of having a name
 ( for purposes such as POD )
 
-=head1 USAGE
-
-The recommended approach is simply:
-
- use PPIx::DocumentName -api => 1;
- 
- # Get a PPI Document Somehow
- my $result = PPIx::DocumentName->extract( $ppi_document );
-
 =head1 CAVEATS
 
 The newer API (C<< -api => 1 >>) is packaged scoped in Perl 5.6 and 5.8.  In newer Perls the API is block

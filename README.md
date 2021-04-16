@@ -50,17 +50,6 @@ Which may be more applicable for documents that lack a `package` statement, or t
 statement may be "wrong", but they still need the document parsed under the guise of having a name
 ( for purposes such as POD )
 
-# USAGE
-
-The recommended approach is simply:
-
-```perl
-use PPIx::DocumentName -api => 1;
-
-# Get a PPI Document Somehow
-my $result = PPIx::DocumentName->extract( $ppi_document );
-```
-
 # METHODS
 
 ## extract
