@@ -202,8 +202,6 @@ allow_includes = 1
 
 [Lax::ProhibitLeadingZeros::ExceptChmod]
 
-[Lax::ProhibitStringyEval::ExceptForRequire]
-
 [Lax::RequireEndWithTrueConst]
 
 [Lax::RequireExplicitPackage::ExceptForPragmata]
@@ -408,8 +406,6 @@ base_max = 130
 [ValuesAndExpressions::ProhibitVersionStrings]
 
 [ValuesAndExpressions::RequireConstantOnLeftSideOfEquality]
-
-[ValuesAndExpressions::RequireConstantVersion]
 
 [ValuesAndExpressions::RequireInterpolationOfMetachars]
 
