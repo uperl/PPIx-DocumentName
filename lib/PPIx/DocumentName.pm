@@ -43,7 +43,9 @@ sub import {
       my($package) = caller;
       $callers{$package} = $args{'-api'};
       require Carp;
-      Carp::carp("Because of the age of your Perl, -api $args{'-api'} will be package scoped instead of block scoped.  Please upgrade to 5.10 or better.");
+      Carp::carp("Because of the age of your Perl, -api $args{'-api'} " .
+                 'will be package scoped instead of block scoped. ' .
+                 'Please upgrade to 5.10 or better.');
     } else {
       $^H{'PPIx::DocumentName/api'} = $args{'-api'};  ## no critic (Variables::RequireLocalizedPunctuationVars)
     }

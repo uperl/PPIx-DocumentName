@@ -422,6 +422,7 @@ base_max = 130
 [ValuesAndExpressions::RequireUpperCaseHeredocTerminator]
 
 [ValuesAndExpressions::RestrictLongStrings]
+max_length = 80
 
 [ValuesAndExpressions::UnexpandedSpecialLiteral]
 
