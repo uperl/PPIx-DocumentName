@@ -2,6 +2,34 @@
 
 Utility to extract a name from a PPI Document
 
+# SYNOPSIS
+
+New API:
+
+```perl
+use PPIx::DocumentName 1.00 -api => 1;
+my $result = PPIx::DocumentName->extract( $ppi_document );
+
+# say the "name" of the document
+say $result->name;
+
+# the result object can also be stringified into the name found:
+say "$result";
+
+# the line number, column, filename etc. where the name was found
+my $location = $result->node->location;  
+```
+
+Old API:
+
+```perl
+use PPIx::DocumentName;  # assumes -api => 0
+my $name = PPIx::DocumentName->extract( $ppi_document );
+
+# say the "name" of the document
+say $name;
+```
+
 # DESCRIPTION
 
 This module contains a few utilities for extracting a "name" out of an arbitrary Perl file.
@@ -27,10 +55,10 @@ statement may be "wrong", but they still need the document parsed under the guis
 The recommended approach is simply:
 
 ```perl
-use PPIx::DocumentName;
+use PPIx::DocumentName -api => 1;
 
 # Get a PPI Document Somehow
-return PPIx::DocumentName->extract( $ppi_document );
+my $result = PPIx::DocumentName->extract( $ppi_document );
 ```
 
 # METHODS
@@ -38,7 +66,7 @@ return PPIx::DocumentName->extract( $ppi_document );
 ## extract
 
 ```perl
-my $docname = PPIx::DocumentName->extract( $ppi_document );
+my $result = PPIx::Document->extract( $ppi_document);
 ```
 
 This will first attempt to extract a name via the `PODNAME: ` comment notation,
@@ -46,6 +74,11 @@ and then fall back to using a `package Package::Name` statement.
 
 `$ppi_document` is ideally a `PPI::Document`, but will be auto-up-cast if it is
 any of the parameters `PPI::Document->new()` understands.
+
+The `$result` is the found name under `-api => 0` and a [PPIx::DocumentName::Result](https://metacpan.org/pod/PPIx::DocumentName::Result) object
+under `-api => 1`.  If the name is not found, then it will be `undef` (with either API).
+Note that [PPIx::DocumentName::Result](https://metacpan.org/pod/PPIx::DocumentName::Result) is stringified to the name found, so in many circumstances
+the new API can be used in the same way as the old.
 
 ## extract\_via\_statement
 
@@ -71,6 +104,11 @@ any of the parameters `PPI::Document->new()` understands.
 
 # CAVEATS
 
+The newer API (`-api => 1`) is packaged scoped in Perl 5.6 and 5.8.  In newer Perls the API is block
+scoped as it should be.  Because this can cause bugs if you are using an older version of Perl this module
+will complain loudly if you are using an older Perl with the newer API.  If you don't like the warning,
+then either use the old API or upgrade to Perl 5.10+.
+
 Under the older API (`-api => 0`; the default), `extract_via_statement`, unlike the other
 methods in this module, returns empty list instead of undef when it does find a name.  When
 using the newer API (`-api => 1`), calls are consistent in scalar and list context.  New
@@ -85,7 +123,7 @@ Other things I could have called this
 - `PPIx::ModuleName` - But it kinda isn't either, because its more generic than that and is tailored to extracting
 "a name" out of any PPI Document, and they're _NOT_ all modules.
 
-# SIMILAR MODULES
+# SEE ALSO
 
 Modules that are perceptibly similar to this ones tasks ( but are subtly different in important ways ) are as follows:
 
@@ -121,6 +159,9 @@ want or need to do, and it lacks a bunch of features this module needs.
 
     And like `Module::Metadata`, it also focuses on extracting _many_ `package` declarations where this module prefers
     to extract only the _first_.
+
+- [`PPIx::DocumentName::Result`](https://metacpan.org/pod/PPIx::DocumentName::Result) - comes with this module, and contains the results of
+this module, when using the newer `-api => 1` API.
 
 # ACKNOWLEDGEMENTS
 
