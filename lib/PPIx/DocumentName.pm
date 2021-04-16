@@ -49,6 +49,12 @@ sub _api {
   return $api;
 }
 
+sub _result {
+  my($name, $ppi_document, $node) = @_;
+  require PPIx::DocumentName::Result;
+  PPIx::DocumentName::Result->_new($name, $ppi_document, $node);  ## no critic (Subroutines::ProtectPrivateSubs)
+}
+
 ## OO
 
 =method extract
@@ -107,7 +113,8 @@ sub extract_via_statement {
     log_debug { "PPI::Statement::Package $pkg_node has empty namespace in <<$ppi_document>>" };
     return 0 == $api ? () : wantarray ? (undef,undef) : undef;
   }
-  return 1 == $api && wantarray ? ($pkg_node->namespace, $pkg_node) : $pkg_node->namespace;
+  my $name = $pkg_node->namespace;
+  return 1 == $api && wantarray ? ($name, _result($name, $dom, $pkg_node)) : $name;
 }
 
 =method extract_via_comment
@@ -148,7 +155,7 @@ sub extract_via_comment {
 
   log_debug { "<<$ppi_document>> has no PODNAME comment" } if not $content;
 
-  return 1 == $api && wantarray ? ($content, $node) : $content;
+  return 1 == $api && wantarray ? ($content, defined $content ? _result($content, $dom, $node) : undef) : $content;
 }
 
 1;
