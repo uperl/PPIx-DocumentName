@@ -10,7 +10,9 @@ my $result = PPIx::DocumentName::Result->_new(
 );
 
 isa_ok $result, 'PPIx::DocumentName::Result';
-is $result->name, 'My::Name';
+is $result->name, 'My::Name', '->name';
+is $result->to_string, 'My::Name', '->to_string';
+is "$result", 'My::Name', '""';
 isa_ok $result->document, 'PPI::Document';
 isa_ok $result->node, 'PPI::Statement::Package';
 

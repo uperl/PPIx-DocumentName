@@ -16,6 +16,7 @@ $modules{$_} = $_ for qw(
   File::Spec
   PPI::Util
   Test::More
+  overload
 );
 
 

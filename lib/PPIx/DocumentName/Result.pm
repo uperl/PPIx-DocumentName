@@ -3,6 +3,10 @@ package PPIx::DocumentName::Result;
 use strict;
 use warnings;
 use 5.006;
+use overload
+  '""'     => sub { shift->to_string },
+  bool     => sub { 1 },
+  fallback => 1;
 
 # ABSTRACT: Full result set for PPIx::DocumentName
 # VERSION
@@ -18,6 +22,14 @@ use 5.006;
  my $name = $result->name;
 
 Returns the name that was found in the document.
+
+=head2 to_string
+
+ my $str = $result->to_string;
+ my $str = "$result";
+
+Convert this object to a string.  This is the same as the C<name> method.  This
+method will also be invoked if stringified inside a double quoted string.
 
 =head2 document
 
@@ -45,8 +57,9 @@ sub _new
   }, $class;
 }
 
-sub name     { shift->{name}     }
-sub document { shift->{document} }
-sub node     { shift->{node}     }
+sub name      { shift->{name}     }
+sub document  { shift->{document} }
+sub node      { shift->{node}     }
+sub to_string { shift->{name}     }
 
 1;
