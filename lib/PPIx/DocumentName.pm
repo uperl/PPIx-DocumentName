@@ -181,21 +181,21 @@ New API:
 
  use PPIx::DocumentName 1.00 -api => 1;
  my $result = PPIx::DocumentName->extract( $ppi_document );
-
+ 
  # say the "name" of the document
  say $result->name;
-
+ 
  # the result object can also be stringified into the name found:
  say "$result";
-
+ 
  # the line number, column, filename etc. where the name was found
- my $location = $result->node->location;  
+ my $location = $result->node->location;
 
 Old API:
 
  use PPIx::DocumentName;  # assumes -api => 0
  my $name = PPIx::DocumentName->extract( $ppi_document );
-
+ 
  # say the "name" of the document
  say $name;
 

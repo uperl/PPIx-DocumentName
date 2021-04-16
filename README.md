@@ -17,7 +17,7 @@ say $result->name;
 say "$result";
 
 # the line number, column, filename etc. where the name was found
-my $location = $result->node->location;  
+my $location = $result->node->location;
 ```
 
 Old API:
