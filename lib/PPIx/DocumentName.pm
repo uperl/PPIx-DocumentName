@@ -126,14 +126,14 @@ sub extract_via_statement {
     # The old API was inconsistant here, for just this method, returns
     # empty list on failure.  This is unfortunately different from
     # extract_via_comment.
-    return 0 == $api ? () : wantarray ? (undef,undef) : undef;
+    return 1 == $api ? undef : ();
   }
   if ( not $pkg_node->namespace ) {
     log_debug { "PPI::Statement::Package $pkg_node has empty namespace in <<$ppi_document>>" };
-    return 0 == $api ? () : wantarray ? (undef,undef) : undef;
+    return 1 == $api ? undef : ();
   }
   my $name = $pkg_node->namespace;
-  return 1 == $api && wantarray ? ($name, _result($name, $dom, $pkg_node)) : $name;
+  return 1 == $api ? _result($name, $dom, $pkg_node) : $name;
 }
 
 =method extract_via_comment
@@ -174,7 +174,7 @@ sub extract_via_comment {
 
   log_debug { "<<$ppi_document>> has no PODNAME comment" } if not $content;
 
-  return 1 == $api && wantarray ? ($content, defined $content ? _result($content, $dom, $node) : undef) : $content;
+  return 1 == $api && defined $content ? _result($content, $dom, $node) : $content;
 }
 
 1;
