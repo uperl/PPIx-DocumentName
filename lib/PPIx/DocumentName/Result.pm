@@ -86,11 +86,13 @@ to get the location information, make sure that you do not throw away the result
 Bad:
 
  my $node = PPIx::DocumentName->extract( $ppi_document )->node;
+ my $location = $node->location;  # undef
 
 Fine:
 
  my $result = PPIx::DocumentName->extract( $ppi_document );
  my $node = $result->node;
+ my $location = $node->location;  # ok
 
 =cut
 
