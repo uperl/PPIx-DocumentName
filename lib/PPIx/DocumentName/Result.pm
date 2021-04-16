@@ -13,7 +13,29 @@ use overload
 
 =head1 SYNOPSIS
 
+ use PPIx::DocumentName 1.00 -api => 1;
+ my $result = PPIx::DocumentName->extract( $ppi_document );
+ 
+ # say the "name" of the document
+ say $result->name;
+ 
+ # the result object can also be stringified into the name found:
+ say "$result";
+ 
+ # get the full PPI::Document object for the entire document
+ my $ppi = $result->document;
+ 
+ # get the node where we found the name
+ # (usually a PPI::Statement::Package or PPI::Token::Comment)
+ my $node = $result->node;
+ 
+ # get the location where we found the name
+ my $location = $result->node->location;
+
 =head1 DESCRIPTION
+
+This class represents the results from L<PPIx::DocumentName> when running under
+its new C<< -api => 1 >> API.
 
 =head1 METHODS
 
@@ -42,8 +64,33 @@ Returns the L<PPI::Document> of the document.
  my $node = $result->node;
 
 Returns the L<PPI::Node> where the name was found.  This will usually be either
-L<PPI::Statement::Package> or L<PPI::Token::COmment>, although other types could
+L<PPI::Statement::Package> or L<PPI::Token::Comment>, although other types could
 be used in the future.
+
+=head1 SEE ALSO
+
+=over 4
+
+=item L<PPIx::DocumentName>
+
+Main module that generates objects of this class.
+
+=back
+
+=head1 CAVEATS
+
+For C<node> to be useful, the C<document> object needs to remain in scope, this is the
+main reason the result object keeps it around, so if you want to use the C<node>
+to get the location information, make sure that you do not throw away the result object.
+
+Bad:
+
+ my $node = PPIx::DocumentName->extract( $ppi_document )->node;
+
+Fine:
+
+ my $result = PPIx::DocumentName->extract( $ppi_document );
+ my $node = $result->node;
 
 =cut
 
