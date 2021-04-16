@@ -2,6 +2,8 @@ Release history for PPIx-ModuleName
 
 {{$NEXT}}
 
+1.00_01   2021-04-16 11:32:50 -0600
+
 0.001003 2017-03-06T03:29:51Z edb00ab
  [Bugfix]
  - Fix tooling issues with -Ddefault_inc_excludes_dot
