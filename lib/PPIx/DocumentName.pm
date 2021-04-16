@@ -75,13 +75,18 @@ sub _result {
 
 =method extract
 
-  my $docname = PPIx::DocumentName->extract( $ppi_document );
+ my $result = PPIx::Document->extract( $ppi_document);
 
 This will first attempt to extract a name via the C<PODNAME: > comment notation,
 and then fall back to using a C<package Package::Name> statement.
 
 C<$ppi_document> is ideally a C<PPI::Document>, but will be auto-up-cast if it is
 any of the parameters C<< PPI::Document->new() >> understands.
+
+The C<$result> is the found name under C<< -api => 0 >> and a L<PPIx::DocumentName::Result> object
+under C<< -api => 1 >>.  If the name is not found, then it will be C<undef> (with either API).
+Note that L<PPIx::DocumentName::Result> is stringified to the name found, so in many circumstances
+the new API can be used in the same way as the old.
 
 =cut
 
@@ -170,6 +175,30 @@ sub extract_via_comment {
 
 1;
 __END__
+=head1 SYNOPSIS
+
+New API:
+
+ use PPIx::DocumentName 1.00 -api => 1;
+ my $result = PPIx::DocumentName->extract( $ppi_document );
+
+ # say the "name" of the document
+ say $result->name;
+
+ # the result object can also be stringified into the name found:
+ say "$result";
+
+ # the line number, column, filename etc. where the name was found
+ my $location = $result->node->location;  
+
+Old API:
+
+ use PPIx::DocumentName;  # assumes -api => 0
+ my $name = PPIx::DocumentName->extract( $ppi_document );
+
+ # say the "name" of the document
+ say $name;
+
 =head1 DESCRIPTION
 
 This module contains a few utilities for extracting a "name" out of an arbitrary Perl file.
@@ -190,12 +219,17 @@ statement may be "wrong", but they still need the document parsed under the guis
 
 The recommended approach is simply:
 
- use PPIx::DocumentName;
+ use PPIx::DocumentName -api => 1;
  
  # Get a PPI Document Somehow
- return PPIx::DocumentName->extract( $ppi_document );
+ my $result = PPIx::DocumentName->extract( $ppi_document );
 
 =head1 CAVEATS
+
+The newer API (C<< -api => 1 >>) is packaged scoped in Perl 5.6 and 5.8.  In newer Perls the API is block
+scoped as it should be.  Because this can cause bugs if you are using an older version of Perl this module
+will complain loudly if you are using an older Perl with the newer API.  If you don't like the warning,
+then either use the old API or upgrade to Perl 5.10+.
 
 Under the older API (C<< -api => 0 >>; the default), C<extract_via_statement>, unlike the other
 methods in this module, returns empty list instead of undef when it does find a name.  When
@@ -216,7 +250,7 @@ C<POD>
 
 =back
 
-=head1 SIMILAR MODULES
+=head1 SEE ALSO
 
 Modules that are perceptibly similar to this ones tasks ( but are subtly different in important ways ) are as follows:
 
@@ -254,6 +288,9 @@ It will also not be flexible enough to support other name extraction features we
 
 And like C<Module::Metadata>, it also focuses on extracting I<many> C<package> declarations where this module prefers
 to extract only the I<first>.
+
+=item * L<< C<PPIx::DocumentName::Result>|PPIx::DocumentName::Result >> - comes with this module, and contains the results of
+this module, when using the newer C<< -api => 1 >> API.
 
 =back
 
