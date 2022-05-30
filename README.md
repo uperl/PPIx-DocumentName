@@ -172,7 +172,7 @@ Thanks to [`RJBS`](cpan:///author/RJBS) for the initial implementation and [`DRO
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015-2021 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2015-2022 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
